@@ -6,6 +6,8 @@ public class LoadChar : MonoBehaviour
 {
     [SerializeField] private GameObject[] chars;
     [SerializeField] private Transform respawnPoint;
+    
+
 
 
     public void Start()
