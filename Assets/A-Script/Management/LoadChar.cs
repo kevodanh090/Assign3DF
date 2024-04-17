@@ -6,15 +6,11 @@ public class LoadChar : MonoBehaviour
 {
     [SerializeField] private GameObject[] chars;
     [SerializeField] private Transform respawnPoint;
-    
 
-
-
-    public void Start()
+    public void Awake()
     {
         int selectedChar = PlayerPrefs.GetInt("selectedCharacter");
         GameObject prefabChar = chars[selectedChar];
         GameObject cloneChar = Instantiate(prefabChar, respawnPoint.position, Quaternion.identity);
-
     }
 }
