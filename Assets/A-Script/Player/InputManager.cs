@@ -20,6 +20,7 @@ public class InputManager : MonoBehaviour
 
     public bool sprintInput;
     public bool jumpInput;
+    public bool dodgeImput;
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
@@ -37,6 +38,8 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
 
             playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
+
+            playerControls.PlayerActions.Dodge.performed += i => dodgeImput = true;
             
         }
         playerControls.Enable();
@@ -50,7 +53,7 @@ public class InputManager : MonoBehaviour
         HandleMovementInput();
         HandleSprintInput();
         HandleJumpInput();
-        //HandleActionInput();
+        HandleDodgeInput();
     }
     private void HandleMovementInput()
     {
@@ -61,7 +64,6 @@ public class InputManager : MonoBehaviour
         cameraInputX = cameraInput.x;
       
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-        Debug.Log("Chay:" + moveAmount);
         animatorManager.UpdateAnimatorValues(0, moveAmount, playerLocomotion.isSprinting);
     }
     private void HandleSprintInput()
@@ -81,6 +83,14 @@ public class InputManager : MonoBehaviour
         {
             jumpInput = false;
             playerLocomotion.HandleJumping();
+        }
+    }
+    private void HandleDodgeInput()
+    {
+        if (dodgeImput)
+        {
+            dodgeImput = false;
+            playerLocomotion.HandleDodge();
         }
     }
 }

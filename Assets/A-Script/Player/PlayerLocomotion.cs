@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerLocomotion : MonoBehaviour
 {
     Transform cameraObject;
-    Rigidbody playerRigidbody;
+    public Rigidbody playerRigidbody;
     InputManager inputMangager;
     PlayerManager playerManager;
     AnimatorManager animatorManager;
@@ -80,7 +80,7 @@ public class PlayerLocomotion : MonoBehaviour
                 moveDirection = moveDirection * walkingSpeed;
             }
         }
-
+        Debug.Log(moveDirection);
         Vector3 movementVelocity = moveDirection;
         playerRigidbody.velocity = movementVelocity;
     }
@@ -118,8 +118,9 @@ public class PlayerLocomotion : MonoBehaviour
             {
                 animatorManager.TargetAnimation("Falling", true);
             }
-            inAirTimer = inAirTimer + Time.deltaTime;
 
+            animatorManager.animator.SetBool("isUsingRootMotion", false);
+            inAirTimer = inAirTimer + Time.deltaTime;
             playerRigidbody.AddForce(transform.forward * leapingVelocity);
             playerRigidbody.AddForce(-Vector3.up * fallingVelocity * inAirTimer);
         }
@@ -146,8 +147,19 @@ public class PlayerLocomotion : MonoBehaviour
 
             float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
             Vector3 playerVeloccity = moveDirection;
+            Debug.Log(moveDirection);
+            Debug.Log("x:" + playerVeloccity.x + "Z: " + playerVeloccity.z);
             playerVeloccity.y = jumpingVelocity;
             playerRigidbody.velocity = playerVeloccity;
         }
+    }
+    public void HandleDodge()
+    {
+        if (playerManager.isInteracting)
+        {
+            return;
+        }
+        animatorManager.TargetAnimation("Dodge", true, true);
+        //TOGGLE INVULNERABLE BOOL FOR NO HP DMAGE DURING ANIMATION
     }
 }

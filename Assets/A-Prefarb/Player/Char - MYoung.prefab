@@ -286,10 +286,13 @@ MonoBehaviour:
     m_Bits: 1
   isSprinting: 0
   isGrounded: 1
-  walkingSpeed: 1.5
-  sprintingSpeed: 7
-  runningSpeed: 5
-  rotaionSpeed: 15
+  isJumping: 0
+  walkingSpeed: 20
+  sprintingSpeed: 10
+  runningSpeed: 7
+  rotaionSpeed: 13
+  jumpHeight: 1.5
+  gravityIntensity: -15
 --- !u!54 &2697398683217958888
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -350,3 +353,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f250f2727f316074e85ddf7711bd1617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
