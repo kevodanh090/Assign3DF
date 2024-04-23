@@ -255,6 +255,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""b0bc5584-65cd-4829-a453-41bc63b57a27"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""94704edf-56f3-4338-828b-bb793b4a465d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -312,6 +330,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8cfcbd66-aabe-43d8-b1e6-af8d9cdb97e6"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cc5982d5-9e92-4421-84a7-c364847248fa"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -327,6 +367,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions_Sprint = m_PlayerActions.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
+        m_PlayerActions_LAttack = m_PlayerActions.FindAction("LAttack", throwIfNotFound: true);
+        m_PlayerActions_HAttack = m_PlayerActions.FindAction("HAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -445,6 +487,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Sprint;
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_Dodge;
+    private readonly InputAction m_PlayerActions_LAttack;
+    private readonly InputAction m_PlayerActions_HAttack;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -452,6 +496,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_PlayerActions_Sprint;
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @Dodge => m_Wrapper.m_PlayerActions_Dodge;
+        public InputAction @LAttack => m_Wrapper.m_PlayerActions_LAttack;
+        public InputAction @HAttack => m_Wrapper.m_PlayerActions_HAttack;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -470,6 +516,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Dodge.started += instance.OnDodge;
             @Dodge.performed += instance.OnDodge;
             @Dodge.canceled += instance.OnDodge;
+            @LAttack.started += instance.OnLAttack;
+            @LAttack.performed += instance.OnLAttack;
+            @LAttack.canceled += instance.OnLAttack;
+            @HAttack.started += instance.OnHAttack;
+            @HAttack.performed += instance.OnHAttack;
+            @HAttack.canceled += instance.OnHAttack;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -483,6 +535,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Dodge.started -= instance.OnDodge;
             @Dodge.performed -= instance.OnDodge;
             @Dodge.canceled -= instance.OnDodge;
+            @LAttack.started -= instance.OnLAttack;
+            @LAttack.performed -= instance.OnLAttack;
+            @LAttack.canceled -= instance.OnLAttack;
+            @HAttack.started -= instance.OnHAttack;
+            @HAttack.performed -= instance.OnHAttack;
+            @HAttack.canceled -= instance.OnHAttack;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -510,5 +568,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
+        void OnLAttack(InputAction.CallbackContext context);
+        void OnHAttack(InputAction.CallbackContext context);
     }
 }

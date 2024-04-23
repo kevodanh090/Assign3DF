@@ -7,6 +7,8 @@ public class InputManager : MonoBehaviour
     PlayerControls playerControls;
     PlayerLocomotion playerLocomotion;
     AnimatorManager animatorManager;
+    PlayerAttacker playerAttacker;
+    PlayerInventory playerInventory;
 
     public Vector2 movementInput;
     public Vector2 cameraInput;
@@ -21,10 +23,14 @@ public class InputManager : MonoBehaviour
     public bool sprintInput;
     public bool jumpInput;
     public bool dodgeImput;
+    public bool lAttackInput;
+    public bool hAttackInput;
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
+        playerAttacker = GetComponent<PlayerAttacker>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
     private void OnEnable()
     {
@@ -38,8 +44,10 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
 
             playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
+            playerControls.PlayerActions.Jump.canceled += i => jumpInput = false;
 
             playerControls.PlayerActions.Dodge.performed += i => dodgeImput = true;
+            playerControls.PlayerActions.Dodge.canceled += i => dodgeImput = false;
             
         }
         playerControls.Enable();
@@ -54,6 +62,7 @@ public class InputManager : MonoBehaviour
         HandleSprintInput();
         HandleJumpInput();
         HandleDodgeInput();
+        HandleAttackInput();
     }
     private void HandleMovementInput()
     {
@@ -91,6 +100,22 @@ public class InputManager : MonoBehaviour
         {
             dodgeImput = false;
             playerLocomotion.HandleDodge();
+        }
+    }
+    private void HandleAttackInput()
+    {
+        playerControls.PlayerActions.LAttack.performed += i => lAttackInput = true;
+        playerControls.PlayerActions.LAttack.canceled += i => lAttackInput = false;
+        playerControls.PlayerActions.HAttack.performed += i => hAttackInput = true;
+        playerControls.PlayerActions.HAttack.canceled += i => hAttackInput = false;
+
+        if (lAttackInput)
+        {
+            playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+        }
+        if (hAttackInput)
+        {
+            playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
         }
     }
 }

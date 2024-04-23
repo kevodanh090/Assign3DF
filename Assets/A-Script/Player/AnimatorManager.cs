@@ -95,6 +95,7 @@ public class AnimatorManager : MonoBehaviour
             playerLocomotion.playerRigidbody.drag = 0;
             Vector3 deltaPosition = animator.deltaPosition;
             deltaPosition.y = 0;
+            Debug.Log(deltaPosition);
             Vector3 velocity = deltaPosition / Time.deltaTime;
             playerLocomotion.playerRigidbody.velocity = velocity;
         }

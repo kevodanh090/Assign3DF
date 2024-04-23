@@ -80,7 +80,6 @@ public class PlayerLocomotion : MonoBehaviour
                 moveDirection = moveDirection * walkingSpeed;
             }
         }
-        Debug.Log(moveDirection);
         Vector3 movementVelocity = moveDirection;
         playerRigidbody.velocity = movementVelocity;
     }
@@ -147,10 +146,12 @@ public class PlayerLocomotion : MonoBehaviour
 
             float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
             Vector3 playerVeloccity = moveDirection;
-            Debug.Log(moveDirection);
-            Debug.Log("x:" + playerVeloccity.x + "Z: " + playerVeloccity.z);
             playerVeloccity.y = jumpingVelocity;
             playerRigidbody.velocity = playerVeloccity;
+        }
+        else
+        {
+            animatorManager.animator.SetBool("isUsingRootMotion", false);
         }
     }
     public void HandleDodge()
