@@ -9,6 +9,7 @@ public class PlayerLocomotion : MonoBehaviour
     InputManager inputMangager;
     PlayerManager playerManager;
     AnimatorManager animatorManager;
+    PlayerStats playerStats;
     
     Vector3 moveDirection;
 
@@ -41,6 +42,7 @@ public class PlayerLocomotion : MonoBehaviour
         playerManager = GetComponent<PlayerManager>();  
         inputMangager = GetComponent<InputManager>();
         playerRigidbody = GetComponent<Rigidbody>();
+        playerStats = GetComponent<PlayerStats>();
         cameraObject = Camera.main.transform;
     }
     public void HandleAllMovement()
@@ -139,7 +141,12 @@ public class PlayerLocomotion : MonoBehaviour
     }
     public void HandleJumping()
     {
-        if(isGrounded)
+        if(playerStats.isDead)
+        {
+            return;
+        }
+
+        if (isGrounded)
         {
             animatorManager.animator.SetBool("isJumping", true);
             animatorManager.TargetAnimation("Jump", false);
@@ -153,6 +160,7 @@ public class PlayerLocomotion : MonoBehaviour
         {
             animatorManager.animator.SetBool("isUsingRootMotion", false);
         }
+        
     }
     public void HandleDodge()
     {

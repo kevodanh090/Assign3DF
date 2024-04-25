@@ -516,7 +516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  healthBar: {fileID: 2906186311575697980, guid: 1c0dba4ce20aba747863ab6bf2aa0eb9, type: 3}
+  isDead: 0
 --- !u!4 &8527956938430139780 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3402569080780720341, guid: 53611bf1a0bd17e48b9d5b2ccd56a0fc, type: 3}

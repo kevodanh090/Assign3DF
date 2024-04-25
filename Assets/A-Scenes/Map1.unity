@@ -10906,8 +10906,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chars:
-  - {fileID: 6170020531774978048, guid: f8cc539dcc3d3e54d83f476bd33309ca, type: 3}
   - {fileID: 2446243667923708812, guid: 71d977c77c68d3a48a9290bb92b84533, type: 3}
+  - {fileID: 6170020531774978048, guid: f8cc539dcc3d3e54d83f476bd33309ca, type: 3}
   respawnPoint: {fileID: 1938202770}
 --- !u!1001 &1664475680
 PrefabInstance:

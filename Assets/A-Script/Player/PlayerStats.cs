@@ -7,6 +7,7 @@ public class PlayerStats : MonoBehaviour
 {
     public int maxHealth = 500;
     public int currentHealth;
+    public bool isDead;
     private HealthBar healthBar;
     AnimatorManager animatorManager;
 
@@ -24,7 +25,7 @@ public class PlayerStats : MonoBehaviour
         
         
     }
-    
+
     //private void SetMaxHealthFromHealthLv()
     //{
     //    maxHealth = heatlhLevel * 10;
@@ -34,11 +35,16 @@ public class PlayerStats : MonoBehaviour
         currentHealth = currentHealth - dmage;
         healthBar.SetCurrentHealth(currentHealth);
         animatorManager.TargetAnimation("Damged", true);
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             //Handle Player death;
             currentHealth = 0;
             animatorManager.TargetAnimation("Dead", true);
+            isDead = true;
+        }
+        else
+        {
+            isDead = false;
         }
     }
 }

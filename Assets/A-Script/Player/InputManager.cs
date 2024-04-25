@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     AnimatorManager animatorManager;
     PlayerAttacker playerAttacker;
     PlayerInventory playerInventory;
+    PlayerStats playerStats;
 
     public Vector2 movementInput;
     public Vector2 cameraInput;
@@ -31,6 +32,7 @@ public class InputManager : MonoBehaviour
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerAttacker = GetComponent<PlayerAttacker>();
         playerInventory = GetComponent<PlayerInventory>();
+        playerStats = GetComponent<PlayerStats>();
     }
     private void OnEnable()
     {
@@ -104,6 +106,10 @@ public class InputManager : MonoBehaviour
     }
     private void HandleAttackInput()
     {
+        if (playerStats.isDead)
+        {
+            return;
+        }
         playerControls.PlayerActions.LAttack.performed += i => lAttackInput = true;
         playerControls.PlayerActions.LAttack.canceled += i => lAttackInput = false;
         playerControls.PlayerActions.HAttack.performed += i => hAttackInput = true;
